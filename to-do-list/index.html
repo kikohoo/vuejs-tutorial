@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>待办事项 APP</title>
+    
+    <!-- 导入vuejs -->
+    <script src="https://unpkg.com/vue@2.6.11/dist/vue.js"></script>    
+
+    <!-- 导入css -->
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+    <div id="main">
+        <header>
+            <h1>待办事项</h1>
+        </header>
+        
+        <!-- 定义一个id为app-to-do-list的div，将app.js的数据绑定在这个div内 -->
+        <div id="app-to-do-list">
+            <!-- 输入框 -->
+            <section id="input">
+                <input type="text" placeholder="输入新任务" v-model="newTodo" v-on:keyup.enter="addTodo()" /> 
+                <button class="add" v-on:click="addTodo()" title='添加新任务'>+</button>
+            </section>
+    
+            <!-- 任务列表 -->
+            <section id="to-do-list">
+                <ul>            
+                    <li v-for="todo in todoList" v-bind:key="todo.id" class="todo-item">
+                    
+                        <label class="todo-check">
+                            <input type="checkbox" v-model="todo.isDone" v-on:click="completed(todo)" />
+                            <span class="checkmark"></span>
+                        </label>
+                        
+                        <span class="todo-text" v-bind:class="{ completed: todo.isDone }">{{ todo.text }}</span>                        
+                        <button class="remove" v-on:click="removeTodo(todo)" title="删除该任务">x</button>
+                                            
+                    </li>
+                </ul>
+            </section>
+        </div>  
+    </div>
+
+    <!-- 导入app.js -->
+    <script src="app.js"></script>
+</body>
+</html>
